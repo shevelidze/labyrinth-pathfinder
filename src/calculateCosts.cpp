@@ -1,23 +1,22 @@
 #include <queue>
 #include "calculateCosts.h"
 
-void calculateCosts(GraphNode* beginNode) {
-	std::queue<GraphNode*> nodesProcessingQueue;
+void calculateCosts(MatrixNode* beginNode, LabyrinthMatrix* matrix) {
+	std::queue<MatrixNode*> nodesProcessingQueue;
 	nodesProcessingQueue.push(beginNode);
 
 	unsigned cost = 0;
 
 	while (!nodesProcessingQueue.empty()) {
-		GraphNode* currentNode = nodesProcessingQueue.back();
+		MatrixNode* currentNode = nodesProcessingQueue.back();
 		nodesProcessingQueue.pop();
 
-		currentNode->becomeVisited();
-		currentNode->visit(cost++);
+		currentNode->setCost(cost++);
 
-		for (auto relatedNode : currentNode->getRelated()) {
-			if (!relatedNode->isVisited()) {
+		for (auto relatedNode : matrix->findRelatedNodes(currentNode)) {
+			if (!relatedNode->checkIfVisited()) {
 				nodesProcessingQueue.push(relatedNode);
-				relatedNode->becomeInQueue();
+				relatedNode->setIsQueued(true);
 			}
 		}
 	}

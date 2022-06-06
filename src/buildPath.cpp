@@ -1,21 +1,21 @@
 #include "buildPath.h"
 
-void buildPath(GraphNode* endNode) {
-	if (!endNode->isVisited()) throw std::runtime_error("There aren't any routes to the node.");
+void buildPath(MatrixNode* endNode, LabyrinthMatrix* matrix) {
+	if (!endNode->checkIfVisited()) throw std::runtime_error("There aren't any routes to the node.");
 
-	GraphNode* currentRouteNode = endNode;
+	MatrixNode* currentRouteNode = endNode;
 
-	while (*(currentRouteNode->getCost()) != 0) {
-		currentRouteNode->becomeUsedInRoute();
+	while (currentRouteNode->getCost() != 0) {
+		currentRouteNode->setIsUsedInRoute(true);
 
 		unsigned minCost = UINT_MAX;
-		GraphNode* minCostRelatedNode = NULL;
+		MatrixNode* minCostRelatedNode = NULL;
 
-		for (auto relatedNode : currentRouteNode->getRelated()) {
-			if (!relatedNode->isVisited()) continue;
+		for (auto relatedNode : matrix->findRelatedNodes(currentRouteNode)) {
+			if (!relatedNode->checkIfVisited()) continue;
 
-			if (*(relatedNode->getCost()) < minCost) {
-				minCost = *(relatedNode->getCost());
+			if (relatedNode->getCost() < minCost) {
+				minCost = relatedNode->getCost();
 				minCostRelatedNode = relatedNode;
 			}
 		}

@@ -1,5 +1,6 @@
 #pragma once
 
-#include "GraphNode.h";
+#include "MatrixNode.h"
+#include "LabyrinthMatrix.h"
 
-void calculateCosts(GraphNode* beginNode);
+void calculateCosts(MatrixNode* beginNode, LabyrinthMatrix* matrix);

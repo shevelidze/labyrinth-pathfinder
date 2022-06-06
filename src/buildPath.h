@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 #include <limits>
-#include "GraphNode.h"
+#include "MatrixNode.h"
+#include "LabyrinthMatrix.h"
 
-void buildPath(GraphNode* endNode);
+void buildPath(MatrixNode* endNode, LabyrinthMatrix* matrix);
