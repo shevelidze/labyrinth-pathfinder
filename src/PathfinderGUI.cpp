@@ -1,6 +1,11 @@
 #include "PathfinderGUI.h"
+#include <iostream>
 
-const float NODES_GAP = 2;
+const float NODES_GAP = 3;
+
+template <class T> void printVector(sf::Vector2<T> vector) {
+	std::cout << vector.x << ' ' << vector.y << '\n';
+}
 
 void PathfinderGUI::mainLoop()
 {
@@ -14,6 +19,16 @@ void PathfinderGUI::mainLoop()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			else if (event.type == sf::Event::Resized) {
+				printVector<float>(window.getDefaultView().getSize());
+				printVector<unsigned>(window.getSize());
+
+				const sf::Vector2f floatWindowSize(window.getSize());
+				const sf::Vector2f newViewCenter(floatWindowSize.x / 2, floatWindowSize.y / 2);
+
+				this->windowView = sf::View(newViewCenter, floatWindowSize);
+				window.setView(this->windowView);
+			}
 		}
 
 		window.clear();
