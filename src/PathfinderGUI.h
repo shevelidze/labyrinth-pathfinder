@@ -11,5 +11,4 @@ public:
 private:
 	LabyrinthMatrix* matrix;
 	sf::View windowView;
-	float calculateNodeSize(sf::Vector2f windowViewSize);
 };

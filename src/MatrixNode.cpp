@@ -1,13 +1,13 @@
 #include "MatrixNode.h"
 #include <limits>
 
-MatrixNode::MatrixNode(size_t rowIndex, size_t columnIndex)
-{
-	this->rowIndex = rowIndex;
-	this->columnIndex = columnIndex;
-
-	this->cost = UINT_MAX;
-}
+MatrixNode::MatrixNode(size_t rowIndex, size_t columnIndex) :
+	isQueued(false),
+	isUsedInRoute(false),
+	rowIndex(rowIndex),
+	columnIndex(columnIndex),
+	cost(UINT_MAX)
+{}
 
 const unsigned& MatrixNode::getCost() {
 	return this->cost;

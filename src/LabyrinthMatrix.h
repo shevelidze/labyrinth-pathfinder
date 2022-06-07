@@ -4,8 +4,8 @@
 #include "MatrixNode.h"
 
 
-const int LABYRINTH_MATRIX_ROWS = 30;
-const int LABYRINTH_MATRIX_COLUMNS = 60;
+const int LABYRINTH_MATRIX_ROWS = 10;
+const int LABYRINTH_MATRIX_COLUMNS = 20;
 
 class LabyrinthMatrix {
 public:
