@@ -6,6 +6,6 @@ set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2.5 REQUIRED graphics)
 
 include_directories(${SFML_INCLUDE_DIR})
-add_executable (labirint-pathfinder "src/main.cpp"  "src/calculateCosts.h" "src/calculateCosts.cpp" "src/PathfinderGUI.h" "src/buildPath.h" "src/buildPath.cpp" "src/PathfinderGUI.cpp" "src/MatrixNode.h" "src/MatrixNode.cpp" "src/LabyrinthMatrix.h" "src/LabyrinthMatrix.cpp" "src/MatrixLayout.h" "src/MatrixLayout.cpp" "src/Layout.h" "src/Layout.cpp" "src/HeaderLayout.cpp" "src/HeaderLayout.h")
+add_executable (labirint-pathfinder "src/main.cpp"  "src/calculateCosts.h" "src/calculateCosts.cpp" "src/PathfinderGUI.h" "src/buildPath.h" "src/buildPath.cpp" "src/PathfinderGUI.cpp" "src/MatrixNode.h" "src/MatrixNode.cpp" "src/LabyrinthMatrix.h" "src/LabyrinthMatrix.cpp" "src/MatrixLayout.h" "src/MatrixLayout.cpp"   "src/HeaderLayout.cpp" "src/HeaderLayout.h" "src/MatrixLayoutNode.h" "src/MatrixLayoutNode.cpp")
 
 target_link_libraries(labirint-pathfinder sfml-graphics)

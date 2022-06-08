@@ -1,27 +1,27 @@
 #pragma once
 
-#include <set>
-#include "Layout.h"
+#include <SFML/Graphics.hpp>
 #include "LabyrinthMatrix.h"
+#include "MatrixLayoutNode.h"
 
 const float NODES_GAP = 5;
-const sf::Color REGULAR_NODE_COLOR(122, 12, 50);
-const sf::Color HOVERED_NODE_COLOR(6, 10, 66);
 
-class MatrixLayout : public Layout 
+class MatrixLayout : public sf::Drawable
 {
 public:
-	MatrixLayout(const sf::Vector2f& size, LabyrinthMatrix &matrix);
+	MatrixLayout(const sf::Vector2f& posiition, const sf::Vector2f& size, LabyrinthMatrix &matrix);
 	void handleEvent(const sf::Event& event);
 	void build();
 	void setSize(const sf::Vector2f &size);
 	~MatrixLayout();
+
 private:
-	virtual const std::vector<sf::Drawable*>& getDrawables() const override;
 	float calculateNodeSize();
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void unhoverHoveredLayoutNode();
 
 	sf::Vector2f size;
 	LabyrinthMatrix& matrix;
-	std::vector<sf::Drawable*> drawables;
-	sf::RectangleShape* hoveredNodeShapePtr;
+	MatrixLayoutNode* matrixLayoutNodes;
+	MatrixLayoutNode* hoveredLayoutNodePtr;
 };

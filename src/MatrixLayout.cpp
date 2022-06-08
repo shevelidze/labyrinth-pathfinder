@@ -1,33 +1,16 @@
 #include "MatrixLayout.h"
 #include <iostream>
 
-const float MATRIX_AREA = LABYRINTH_MATRIX_ROWS * LABYRINTH_MATRIX_COLUMNS;
+const size_t MATRIX_AREA = LABYRINTH_MATRIX_ROWS * LABYRINTH_MATRIX_COLUMNS;
 
-MatrixLayout::MatrixLayout(const sf::Vector2f& size, LabyrinthMatrix& matrix) : 
+MatrixLayout::MatrixLayout(const sf::Vector2f& position, const sf::Vector2f& size, LabyrinthMatrix& matrix) : 
 	matrix(matrix),
 	size(size),
-	drawables(MATRIX_AREA),
-	hoveredNodeShapePtr(NULL)
-{}
-
-void MatrixLayout::handleEvent(const sf::Event& event)
+	hoveredLayoutNodePtr(NULL),
+	matrixLayoutNodes(new MatrixLayoutNode [MATRIX_AREA])
 {
-	if (event.type == sf::Event::MouseMoved) {
-		if (this->hoveredNodeShapePtr != NULL)
-			this->hoveredNodeShapePtr->setFillColor(REGULAR_NODE_COLOR);
 
-		for (auto drawablePtr : this->drawables) {
-			auto rectangleShapePtr = static_cast<sf::RectangleShape*>(drawablePtr);
-			if (rectangleShapePtr->getGlobalBounds().contains(event.mouseMove.x, event.mouseMove.y)) {
-				this->hoveredNodeShapePtr = rectangleShapePtr;
-				rectangleShapePtr->setFillColor(HOVERED_NODE_COLOR);
-			}
-		}
-	}
-}
-
-void MatrixLayout::build() {
-	sf::Vector2f currentNodePosition(this->getPosition());
+	sf::Vector2f currentNodePosition(position);
 
 	float nodeSize = this->calculateNodeSize();
 
@@ -35,19 +18,13 @@ void MatrixLayout::build() {
 		currentNodePosition.x = 0;
 		for (size_t j = 0; j < LABYRINTH_MATRIX_COLUMNS; j++)
 		{
-			sf::RectangleShape* rectangleShapePtr;
-			size_t indexInDrawableArray = i * LABYRINTH_MATRIX_COLUMNS + j;
+			size_t indexInLayoutNodesArray = i * LABYRINTH_MATRIX_COLUMNS + j;
 
-			if (this->drawables[indexInDrawableArray] == NULL) {
-				rectangleShapePtr = new sf::RectangleShape;
-				this->drawables[indexInDrawableArray] = rectangleShapePtr;
-			}
-			else
-				rectangleShapePtr = static_cast<sf::RectangleShape*>(this->drawables[i * LABYRINTH_MATRIX_COLUMNS + j]);
-
-			rectangleShapePtr->setSize(sf::Vector2f(nodeSize, nodeSize));
-			rectangleShapePtr->setPosition(currentNodePosition);
-			rectangleShapePtr->setFillColor(REGULAR_NODE_COLOR);
+			this->matrixLayoutNodes[indexInLayoutNodesArray] = MatrixLayoutNode(
+				currentNodePosition,
+				nodeSize,
+				this->matrix.getNode(i, j)
+				);
 
 			currentNodePosition.x += nodeSize + NODES_GAP;
 		}
@@ -55,9 +32,50 @@ void MatrixLayout::build() {
 	}
 }
 
-const std::vector<sf::Drawable*>& MatrixLayout::getDrawables() const
+void MatrixLayout::handleEvent(const sf::Event& event)
 {
-	return this->drawables;
+	if (event.type == sf::Event::MouseMoved) {
+		for (size_t i = 0; i < MATRIX_AREA; i++) {
+			if (this->matrixLayoutNodes[i].getGlobalBounds().contains(event.mouseMove.x, event.mouseMove.y)) {
+				if (this->hoveredLayoutNodePtr != this->matrixLayoutNodes + i) {
+					this->unhoverHoveredLayoutNode();
+					this->hoveredLayoutNodePtr = this->matrixLayoutNodes + i;
+					this->matrixLayoutNodes[i].setIsHovered(true);
+				}
+				return;
+			}
+		}
+		this->unhoverHoveredLayoutNode();
+	}
+}
+
+void MatrixLayout::build() {
+	//sf::Vector2f currentNodePosition(this->getPosition());
+
+	//float nodeSize = this->calculateNodeSize();
+
+	//for (size_t i = 0; i < LABYRINTH_MATRIX_ROWS; i++) {
+	//	currentNodePosition.x = 0;
+	//	for (size_t j = 0; j < LABYRINTH_MATRIX_COLUMNS; j++)
+	//	{
+	//		sf::RectangleShape* rectangleShapePtr;
+	//		size_t indexInDrawableArray = i * LABYRINTH_MATRIX_COLUMNS + j;
+
+	//		if (this->drawables[indexInDrawableArray] == NULL) {
+	//			rectangleShapePtr = new sf::RectangleShape;
+	//			this->drawables[indexInDrawableArray] = rectangleShapePtr;
+	//		}
+	//		else
+	//			rectangleShapePtr = static_cast<sf::RectangleShape*>(this->drawables[i * LABYRINTH_MATRIX_COLUMNS + j]);
+
+	//		rectangleShapePtr->setSize(sf::Vector2f(nodeSize, nodeSize));
+	//		rectangleShapePtr->setPosition(currentNodePosition);
+	//		rectangleShapePtr->setFillColor(REGULAR_NODE_COLOR);
+
+	//		currentNodePosition.x += nodeSize + NODES_GAP;
+	//	}
+	//	currentNodePosition.y += nodeSize + NODES_GAP;
+	//}
 }
 
 float MatrixLayout::calculateNodeSize() {
@@ -73,13 +91,23 @@ float MatrixLayout::calculateNodeSize() {
 	);
 }
 
+void MatrixLayout::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	for (size_t i = 0; i < MATRIX_AREA; i++) {
+		target.draw(this->matrixLayoutNodes[i], states);
+	}
+}
+
+void MatrixLayout::unhoverHoveredLayoutNode()
+{
+	if (this->hoveredLayoutNodePtr != NULL) this->hoveredLayoutNodePtr->setIsHovered(false);
+}
+
 void MatrixLayout::setSize(const sf::Vector2f &size) {
 	this->size = size;
 }
 
 MatrixLayout::~MatrixLayout()
 {
-	for (auto drawablePtr : this->drawables) {
-		if (drawablePtr != NULL) delete drawablePtr;
-	}
+	delete[] this->matrixLayoutNodes;
 }

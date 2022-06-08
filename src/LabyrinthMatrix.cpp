@@ -17,8 +17,8 @@ void LabyrinthMatrix::removeWall(int rowIndex, int columnIndex) {
 	this->matrix[rowIndex][columnIndex] = new MatrixNode(rowIndex, columnIndex);
 }
 
-MatrixNode* LabyrinthMatrix::getNode(int rowIndex, int columnIndex) {
-	return this->matrix[rowIndex][columnIndex];
+MatrixNode &LabyrinthMatrix::getNode(int rowIndex, int columnIndex) {
+	return *(this->matrix[rowIndex][columnIndex]);
 }
 
 template <class T> void pushBackIfNotNULL(std::vector<T*> vector, T* value) {
