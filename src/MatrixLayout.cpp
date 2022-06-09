@@ -3,13 +3,18 @@
 
 const size_t MATRIX_AREA = LABYRINTH_MATRIX_ROWS * LABYRINTH_MATRIX_COLUMNS;
 
-MatrixLayout::MatrixLayout(const sf::Vector2f& position, const sf::Vector2f& size, LabyrinthMatrix& matrix) : 
-	matrix(matrix),
+MatrixLayout::MatrixLayout(
+	const sf::Vector2f& position,
+	const sf::Vector2f& size,
+	const sf::RenderWindow& window,
+	LabyrinthMatrix& matrix
+) :
+	matrixPtr(&matrix),
 	size(size),
+	windowPtr(&window),
 	hoveredLayoutNodePtr(NULL),
 	matrixLayoutNodes(new MatrixLayoutNode [MATRIX_AREA])
 {
-
 	sf::Vector2f currentNodePosition(position);
 
 	float nodeSize = this->calculateNodeSize();
@@ -23,7 +28,7 @@ MatrixLayout::MatrixLayout(const sf::Vector2f& position, const sf::Vector2f& siz
 			this->matrixLayoutNodes[indexInLayoutNodesArray] = MatrixLayoutNode(
 				currentNodePosition,
 				nodeSize,
-				this->matrix.getNode(i, j)
+				this->matrixPtr->getNode(i, j)
 				);
 
 			currentNodePosition.x += nodeSize + NODES_GAP;
@@ -36,7 +41,10 @@ void MatrixLayout::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::MouseMoved) {
 		for (size_t i = 0; i < MATRIX_AREA; i++) {
-			if (this->matrixLayoutNodes[i].getGlobalBounds().contains(event.mouseMove.x, event.mouseMove.y)) {
+			const sf::Vector2f worldPos = this->windowPtr->mapPixelToCoords(
+				sf::Vector2i(event.mouseMove.x, event.mouseMove.y)
+			);
+			if (this->matrixLayoutNodes[i].getGlobalBounds().contains(worldPos)) {
 				if (this->hoveredLayoutNodePtr != this->matrixLayoutNodes + i) {
 					this->unhoverHoveredLayoutNode();
 					this->hoveredLayoutNodePtr = this->matrixLayoutNodes + i;

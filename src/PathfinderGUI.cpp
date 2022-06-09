@@ -16,6 +16,7 @@ void PathfinderGUI::mainLoop()
 	MatrixLayout matrixLayout(
 		sf::Vector2f(0, HEADER_HEIGHT),
 		calculateMatrixLayoutSize(window.getView().getSize()),
+		window,
 		matrix
 	);
 		
