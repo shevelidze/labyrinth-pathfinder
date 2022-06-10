@@ -16,7 +16,6 @@ public:
 		LabyrinthMatrix &matrix
 	);
 	void handleEvent(const sf::Event& event);
-	void build();
 	void setSize(const sf::Vector2f &size);
 	~MatrixLayout();
 

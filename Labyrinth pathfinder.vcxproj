@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="src\buildPath.h" />
     <ClInclude Include="src\calculateCosts.h" />
+    <ClInclude Include="src\HeaderButton.h" />
     <ClInclude Include="src\HeaderLayout.h" />
     <ClInclude Include="src\LabyrinthMatrix.h" />
     <ClInclude Include="src\MatrixLayout.h" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="src\buildPath.cpp" />
     <ClCompile Include="src\calculateCosts.cpp" />
+    <ClCompile Include="src\HeaderButton.cpp" />
     <ClCompile Include="src\HeaderLayout.cpp" />
     <ClCompile Include="src\LabyrinthMatrix.cpp" />
     <ClCompile Include="src\main.cpp" />
