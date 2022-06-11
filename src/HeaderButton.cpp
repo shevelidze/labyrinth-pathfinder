@@ -46,7 +46,7 @@ const sf::FloatRect HeaderButton::getGlobalBounds()
 
 ClckEventHandler HeaderButton::getClickEventHandler()
 {
-	return ClckEventHandler();
+	return this->clickEventHandler;
 }
 
 void HeaderButton::setIsHovered(const bool& isHovered)

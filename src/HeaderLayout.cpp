@@ -1,4 +1,5 @@
 #include "HeaderLayout.h"
+#include <iostream>
 
 
 HeaderLayout::HeaderLayout(
@@ -11,24 +12,37 @@ HeaderLayout::HeaderLayout(
 	hoveredButtonPtr(NULL),
 	windowPtr(&window)
 {
-	this->addButton("Button 1", []() {});
-	this->addButton("Button 2", []() {});
-	this->addButton("Button 3", []() {});
+	this->addButton("Button 1", []() {std::cout << "Button1 pressed\n"; });
+	this->addButton("Button 2", []() {std::cout << "Button2 pressed\n"; });
+	this->addButton("Button 3", []() {std::cout << "Button3 pressed\n"; });
 }
 
 void HeaderLayout::handleEvent(const sf::Event& event)
 {
-	if (event.type == sf::Event::MouseMoved) {
+	if (
+		event.type == sf::Event::MouseMoved ||
+		(
+			event.type == sf::Event::MouseButtonPressed &&
+			event.mouseButton.button == sf::Mouse::Left
+		)
+	) {
 		for (auto& button : this->buttons) {
+			sf::Vector2i mousePosition(
+				event.type == sf::Event::MouseMoved ? event.mouseMove.x : event.mouseButton.x,
+				event.type == sf::Event::MouseMoved ? event.mouseMove.y : event.mouseButton.y
+			);
+
 			if (button.getGlobalBounds().contains(
-				this->windowPtr->mapPixelToCoords(sf::Vector2i(
-					event.mouseMove.x,
-					event.mouseMove.y
-				))
+				this->windowPtr->mapPixelToCoords(mousePosition)
 			)) {
 				unhoverHoveredButton();
 				button.setIsHovered(true);
 				this->hoveredButtonPtr = &button;
+
+				if (event.type == sf::Event::MouseButtonPressed) {
+					button.getClickEventHandler()();
+				}
+
 				return;
 			}
 		}
