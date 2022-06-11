@@ -13,7 +13,7 @@ void PathfinderGUI::mainLoop()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Labyrinth pathfinder", sf::Style::Close);
 
 	sf::Font font;
-	if (!font.loadFromFile("Roboto-Medium.ttf")) throw std::runtime_error("Falied to load font");
+	if (!font.loadFromFile("Roboto-Medium.ttf")) throw std::runtime_error("Failed to load font");
 
 	LabyrinthMatrix matrix;
 	MatrixLayout matrixLayout(

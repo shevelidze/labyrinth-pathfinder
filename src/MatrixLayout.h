@@ -3,10 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include "LabyrinthMatrix.h"
 #include "MatrixLayoutNode.h"
+#include "ClickableWrapper.h"
 
 const float NODES_GAP = 5;
 
-class MatrixLayout : public sf::Drawable
+class MatrixLayout : public sf::Drawable, public ClickableWrapper
 {
 public:
 	MatrixLayout(
@@ -15,18 +16,20 @@ public:
 		const sf::RenderWindow& window,
 		LabyrinthMatrix &matrix
 	);
-	void handleEvent(const sf::Event& event);
 	void setSize(const sf::Vector2f &size);
 	~MatrixLayout();
 
 private:
 	float calculateNodeSize();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void unhoverHoveredLayoutNode();
+
+	virtual const sf::RenderWindow& getWindow() const override;
+	virtual const std::vector<Clickable*>& getClickablePointersVector() const override;
 
 	sf::Vector2f size;
 	LabyrinthMatrix *matrixPtr;
 	MatrixLayoutNode* matrixLayoutNodes;
 	MatrixLayoutNode* hoveredLayoutNodePtr;
 	const sf::RenderWindow* windowPtr;
+	std::vector<Clickable*> clickablePointersVector;
 };

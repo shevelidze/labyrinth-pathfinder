@@ -1,28 +1,38 @@
 #include "MatrixLayoutNode.h"
-#include <iostream>
+
 
 MatrixLayoutNode::MatrixLayoutNode(
 	const sf::Vector2f &position,
 	const float &size,
+	ClickEventHandler clickEventHandler,
 	const MatrixNode& matrixNode
-) : matrixNode(&matrixNode), isHovered(false)
+) :
+	Clickable(false),
+	matrixNode(&matrixNode),
+	clickEventHandler(clickEventHandler)
 {
 	this->setSize(sf::Vector2f(size, size));
 	this->setPosition(position);
-	this->updateColor();
+	this->stateChangeHandler();
 }
 
-MatrixLayoutNode::MatrixLayoutNode() {};
+MatrixLayoutNode::MatrixLayoutNode() :
+	Clickable(false),
+	matrixNode(NULL),
+	clickEventHandler(NULL)
+{}
 
-void MatrixLayoutNode::setIsHovered(bool isHovered)
+ClickEventHandler MatrixLayoutNode::getClickEventHandler() const
 {
-	this->isHovered = isHovered;
-	this->updateColor();
+	return this->clickEventHandler;
 }
 
-void MatrixLayoutNode::updateColor() {
-	if (this->isHovered) {
-		this->setFillColor(HOVERED_NODE_COLOR);
-	}
+sf::FloatRect MatrixLayoutNode::getGlobalBounds() const
+{
+	return this->sf::RectangleShape::getGlobalBounds();
+};
+
+void MatrixLayoutNode::stateChangeHandler() {
+	if (this->isHovered) this->setFillColor(HOVERED_NODE_COLOR);
 	else this->setFillColor(REGULAR_NODE_COLOR);
 }

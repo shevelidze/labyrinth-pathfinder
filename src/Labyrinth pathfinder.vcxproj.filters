@@ -31,6 +31,12 @@
     <ClCompile Include="PathfinderGUI.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="Clickable.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickableWrapper.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buildPath.h">
@@ -60,10 +66,17 @@
     <ClInclude Include="PathfinderGUI.h">
       <Filter>Header files</Filter>
     </ClInclude>
+    <ClInclude Include="Clickable.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickableWrapper.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source files">
       <UniqueIdentifier>{ae7cc1ea-12d0-4948-8125-06cffd8ab9ef}</UniqueIdentifier>
+      <Extensions>cpp</Extensions>
     </Filter>
     <Filter Include="Header files">
       <UniqueIdentifier>{2b2b3e99-68f2-438d-83ec-5e012f4c34b7}</UniqueIdentifier>

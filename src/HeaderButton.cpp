@@ -6,10 +6,10 @@ HeaderButton::HeaderButton(
 	const float& height,
 	const sf::Font& font,
 	const sf::String& text,
-	void(*clickEventHandler)()
+	ClickEventHandler clickEventHandler
 ) :
-	clickEventHandler(clickEventHandler),
-	isHovered(false)
+	Clickable(false),
+	clickEventHandler(clickEventHandler)
 {
 	this->textDrawable.setString(text);
 	this->textDrawable.setFont(font);
@@ -36,15 +36,15 @@ HeaderButton::HeaderButton(
 		position.y + this->rectangleShape.getSize().y / 2.0f
 	);
 
-	this->updateColor();
+	this->stateChangeHandler();
 }
 
-const sf::FloatRect HeaderButton::getGlobalBounds()
+sf::FloatRect HeaderButton::getGlobalBounds() const
 {
 	return this->rectangleShape.getGlobalBounds();
 }
 
-ClckEventHandler HeaderButton::getClickEventHandler()
+ClickEventHandler HeaderButton::getClickEventHandler() const
 {
 	return this->clickEventHandler;
 }
@@ -52,10 +52,10 @@ ClckEventHandler HeaderButton::getClickEventHandler()
 void HeaderButton::setIsHovered(const bool& isHovered)
 {
 	this->isHovered = isHovered;
-	this->updateColor();
+	this->stateChangeHandler();
 }
 
-void HeaderButton::updateColor()
+void HeaderButton::stateChangeHandler()
 {
 	if (this->isHovered) {
 		this->rectangleShape.setFillColor(HOVERED_HEADER_BUTTON_BACKGROUND_COLOR);

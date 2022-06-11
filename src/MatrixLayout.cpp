@@ -1,5 +1,4 @@
 #include "MatrixLayout.h"
-#include <iostream>
 
 
 const size_t MATRIX_AREA = LABYRINTH_MATRIX_ROWS * LABYRINTH_MATRIX_COLUMNS;
@@ -26,38 +25,25 @@ MatrixLayout::MatrixLayout(
 		{
 			size_t indexInLayoutNodesArray = i * LABYRINTH_MATRIX_COLUMNS + j;
 
+			ClickEventHandler clickEventHandler = [i, j]() {
+				printf("Pressed node %i, %i\n", i, j);
+			};
+
 			this->matrixLayoutNodes[indexInLayoutNodesArray] = MatrixLayoutNode(
 				currentNodePosition,
 				nodeSize,
+				clickEventHandler,
 				this->matrixPtr->getNode(i, j)
+			);
+
+			this->clickablePointersVector.push_back(
+				&matrixLayoutNodes[indexInLayoutNodesArray]
 			);
 
 			currentNodePosition.x += nodeSize + NODES_GAP;
 		}
 		currentNodePosition.y += nodeSize + NODES_GAP;
 	}
-}
-
-void MatrixLayout::handleEvent(const sf::Event& event)
-{
-	if (event.type == sf::Event::MouseMoved) {
-		for (size_t i = 0; i < MATRIX_AREA; i++) {
-			const sf::Vector2f worldPos = this->windowPtr->mapPixelToCoords(
-				sf::Vector2i(event.mouseMove.x, event.mouseMove.y)
-			);
-			if (this->matrixLayoutNodes[i].getGlobalBounds().contains(worldPos)) {
-				if (this->hoveredLayoutNodePtr != this->matrixLayoutNodes + i) {
-					this->unhoverHoveredLayoutNode();
-					this->hoveredLayoutNodePtr = this->matrixLayoutNodes + i;
-					this->matrixLayoutNodes[i].setIsHovered(true);
-				}
-				return;
-			}
-		}
-		this->unhoverHoveredLayoutNode();
-	}
-	else if (event.type == sf::Event::MouseLeft)
-		this->unhoverHoveredLayoutNode();
 }
 
 float MatrixLayout::calculateNodeSize() {
@@ -80,9 +66,14 @@ void MatrixLayout::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-void MatrixLayout::unhoverHoveredLayoutNode()
+const sf::RenderWindow& MatrixLayout::getWindow() const
 {
-	if (this->hoveredLayoutNodePtr != NULL) this->hoveredLayoutNodePtr->setIsHovered(false);
+	return *(this->windowPtr);
+}
+
+const std::vector<Clickable*>& MatrixLayout::getClickablePointersVector() const
+{
+	return this->clickablePointersVector;
 }
 
 void MatrixLayout::setSize(const sf::Vector2f &size) {

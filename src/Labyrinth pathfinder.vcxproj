@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="buildPath.cpp" />
     <ClCompile Include="calculateCosts.cpp" />
+    <ClCompile Include="Clickable.cpp" />
+    <ClCompile Include="ClickableWrapper.cpp" />
     <ClCompile Include="HeaderButton.cpp" />
     <ClCompile Include="HeaderLayout.cpp" />
     <ClCompile Include="LabyrinthMatrix.cpp" />
@@ -33,6 +35,8 @@
   <ItemGroup>
     <ClInclude Include="buildPath.h" />
     <ClInclude Include="calculateCosts.h" />
+    <ClInclude Include="Clickable.h" />
+    <ClInclude Include="ClickableWrapper.h" />
     <ClInclude Include="HeaderButton.h" />
     <ClInclude Include="HeaderLayout.h" />
     <ClInclude Include="LabyrinthMatrix.h" />
