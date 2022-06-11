@@ -23,6 +23,6 @@ public:
 private:
 	virtual void stateChangeHandler() override;
 
-	const MatrixNode *matrixNode;
+	const MatrixNode *matrixNodePtr;
 	ClickEventHandler clickEventHandler;
 };

@@ -1,4 +1,5 @@
 #include "MatrixLayout.h"
+#include <iostream>
 
 
 const size_t MATRIX_AREA = LABYRINTH_MATRIX_ROWS * LABYRINTH_MATRIX_COLUMNS;
@@ -13,7 +14,8 @@ MatrixLayout::MatrixLayout(
 	size(size),
 	windowPtr(&window),
 	hoveredLayoutNodePtr(NULL),
-	matrixLayoutNodes(new MatrixLayoutNode [MATRIX_AREA])
+	matrixLayoutNodes(new MatrixLayoutNode [MATRIX_AREA]),
+	mode(MatrixLayout::Mode::Initial)
 {
 	sf::Vector2f currentNodePosition(position);
 
@@ -61,6 +63,22 @@ float MatrixLayout::calculateNodeSize() {
 
 void MatrixLayout::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	switch (this->mode)
+	{
+	case MatrixLayout::Mode::AnimationViewing:
+		std::cout << "Animation viewing\n";
+		break;
+	case MatrixLayout::Mode::LabyrinthEditing:
+		std::cout << "Labyrinth editing\n";
+		break;
+	case MatrixLayout::Mode::PointsChoosing:
+		std::cout << "Points choosing\n";
+		break;
+	case MatrixLayout::Mode::Initial:
+		std::cout << "Initial\n";
+		break;
+	}
+
 	for (size_t i = 0; i < MATRIX_AREA; i++) {
 		target.draw(this->matrixLayoutNodes[i], states);
 	}
@@ -78,6 +96,11 @@ const std::vector<Clickable*>& MatrixLayout::getClickablePointersVector() const
 
 void MatrixLayout::setSize(const sf::Vector2f &size) {
 	this->size = size;
+}
+
+void MatrixLayout::setMode(MatrixLayout::Mode mode)
+{
+	this->mode = mode;
 }
 
 MatrixLayout::~MatrixLayout()

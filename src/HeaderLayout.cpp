@@ -11,9 +11,26 @@ HeaderLayout::HeaderLayout(
 	fontPtr(&font),
 	windowPtr(&window)
 {
-	this->addButton("Button 1", []() {std::cout << "Button1 pressed\n"; });
-	this->addButton("Button 2", []() {std::cout << "Button2 pressed\n"; });
-	this->addButton("Button 3", []() {std::cout << "Button3 pressed\n"; });
+	this->addButton(
+		"Edit labyrinth",
+		[&matrixLayout]() {
+			matrixLayout.setMode(MatrixLayout::Mode::LabyrinthEditing);
+		}
+	);
+
+	this->addButton(
+		"Choose points",
+		[&matrixLayout]() {
+			matrixLayout.setMode(MatrixLayout::Mode::PointsChoosing);
+		}
+	);
+
+	this->addButton(
+		"Start search",
+		[&matrixLayout]() {
+			matrixLayout.setMode(MatrixLayout::Mode::AnimationViewing);
+		}
+	);
 }
 
 HeaderLayout::~HeaderLayout()
@@ -38,7 +55,7 @@ const sf::RenderWindow& HeaderLayout::getWindow() const
 	return *this->windowPtr;
 }
 
-void HeaderLayout::addButton(const sf::String& text, void(*clickEventHandler)())
+void HeaderLayout::addButton(const sf::String& text, ClickEventHandler clickEventHandler)
 {
 	sf::Vector2f newButtonPosition(
 		this->buttonPointersVector.empty() ? 0 : (

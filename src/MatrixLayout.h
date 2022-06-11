@@ -10,14 +10,23 @@ const float NODES_GAP = 5;
 class MatrixLayout : public sf::Drawable, public ClickableWrapper
 {
 public:
+	enum class Mode {
+		Initial,
+		LabyrinthEditing,
+		PointsChoosing,
+		AnimationViewing
+	};
+
 	MatrixLayout(
 		const sf::Vector2f& position,
 		const sf::Vector2f& size,
 		const sf::RenderWindow& window,
 		LabyrinthMatrix &matrix
 	);
-	void setSize(const sf::Vector2f &size);
 	~MatrixLayout();
+
+	void setSize(const sf::Vector2f &size);
+	void setMode(MatrixLayout::Mode mode);
 
 private:
 	float calculateNodeSize();
@@ -27,9 +36,13 @@ private:
 	virtual const std::vector<Clickable*>& getClickablePointersVector() const override;
 
 	sf::Vector2f size;
+	MatrixLayout::Mode mode;
+
 	LabyrinthMatrix *matrixPtr;
+	const sf::RenderWindow* windowPtr;
+
 	MatrixLayoutNode* matrixLayoutNodes;
 	MatrixLayoutNode* hoveredLayoutNodePtr;
-	const sf::RenderWindow* windowPtr;
+	
 	std::vector<Clickable*> clickablePointersVector;
 };

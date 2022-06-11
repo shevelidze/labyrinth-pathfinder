@@ -8,7 +8,7 @@ MatrixLayoutNode::MatrixLayoutNode(
 	const MatrixNode& matrixNode
 ) :
 	Clickable(false),
-	matrixNode(&matrixNode),
+	matrixNodePtr(&matrixNode),
 	clickEventHandler(clickEventHandler)
 {
 	this->setSize(sf::Vector2f(size, size));
@@ -18,7 +18,7 @@ MatrixLayoutNode::MatrixLayoutNode(
 
 MatrixLayoutNode::MatrixLayoutNode() :
 	Clickable(false),
-	matrixNode(NULL),
+	matrixNodePtr(NULL),
 	clickEventHandler(NULL)
 {}
 
@@ -34,5 +34,6 @@ sf::FloatRect MatrixLayoutNode::getGlobalBounds() const
 
 void MatrixLayoutNode::stateChangeHandler() {
 	if (this->isHovered) this->setFillColor(HOVERED_NODE_COLOR);
+	else if (this->matrixNodePtr == NULL) this->setFillColor(sf::Color::Black);
 	else this->setFillColor(REGULAR_NODE_COLOR);
 }
