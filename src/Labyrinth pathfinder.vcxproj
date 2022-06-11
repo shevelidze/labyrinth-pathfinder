@@ -18,6 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="buildPath.cpp" />
+    <ClCompile Include="calculateCosts.cpp" />
+    <ClCompile Include="HeaderButton.cpp" />
+    <ClCompile Include="HeaderLayout.cpp" />
+    <ClCompile Include="LabyrinthMatrix.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MatrixLayout.cpp" />
+    <ClCompile Include="MatrixLayoutNode.cpp" />
+    <ClCompile Include="MatrixNode.cpp" />
+    <ClCompile Include="PathfinderGUI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="buildPath.h" />
+    <ClInclude Include="calculateCosts.h" />
+    <ClInclude Include="HeaderButton.h" />
+    <ClInclude Include="HeaderLayout.h" />
+    <ClInclude Include="LabyrinthMatrix.h" />
+    <ClInclude Include="MatrixLayout.h" />
+    <ClInclude Include="MatrixLayoutNode.h" />
+    <ClInclude Include="MatrixNode.h" />
+    <ClInclude Include="PathfinderGUI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\Roboto-Medium.ttf">
+      <FileType>Document</FileType>
+      <DeploymentContent>true</DeploymentContent>
+    </CopyFileToFolders>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -145,29 +174,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="src\buildPath.h" />
-    <ClInclude Include="src\calculateCosts.h" />
-    <ClInclude Include="src\HeaderButton.h" />
-    <ClInclude Include="src\HeaderLayout.h" />
-    <ClInclude Include="src\LabyrinthMatrix.h" />
-    <ClInclude Include="src\MatrixLayout.h" />
-    <ClInclude Include="src\MatrixLayoutNode.h" />
-    <ClInclude Include="src\MatrixNode.h" />
-    <ClInclude Include="src\PathfinderGUI.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\buildPath.cpp" />
-    <ClCompile Include="src\calculateCosts.cpp" />
-    <ClCompile Include="src\HeaderButton.cpp" />
-    <ClCompile Include="src\HeaderLayout.cpp" />
-    <ClCompile Include="src\LabyrinthMatrix.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\MatrixLayout.cpp" />
-    <ClCompile Include="src\MatrixLayoutNode.cpp" />
-    <ClCompile Include="src\MatrixNode.cpp" />
-    <ClCompile Include="src\PathfinderGUI.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

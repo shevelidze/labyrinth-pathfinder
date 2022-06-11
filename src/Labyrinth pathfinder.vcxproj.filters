@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="buildPath.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="calculateCosts.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="HeaderButton.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="HeaderLayout.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="LabyrinthMatrix.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixLayout.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixLayoutNode.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixNode.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathfinderGUI.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="buildPath.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="calculateCosts.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderButton.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderLayout.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="LabyrinthMatrix.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixLayout.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixLayoutNode.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixNode.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathfinderGUI.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{ae7cc1ea-12d0-4948-8125-06cffd8ab9ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{2b2b3e99-68f2-438d-83ec-5e012f4c34b7}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\Roboto-Medium.ttf" />
+  </ItemGroup>
+</Project>
