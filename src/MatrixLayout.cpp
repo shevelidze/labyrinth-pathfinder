@@ -15,7 +15,9 @@ MatrixLayout::MatrixLayout(
 	windowPtr(&window),
 	hoveredLayoutNodePtr(NULL),
 	matrixLayoutNodes(new MatrixLayoutNode [MATRIX_AREA]),
-	mode(MatrixLayout::Mode::Initial)
+	mode(MatrixLayout::Mode::Initial),
+	pathBeginLayoutNodePtr(NULL),
+	pathEndLayoutNodePtr(NULL)
 {
 	sf::Vector2f currentNodePosition(position);
 
@@ -31,20 +33,34 @@ MatrixLayout::MatrixLayout(
 				[i, j, this](Clickable* clickablePtr) {
 				printf("Pressed node %i, %i\n", i, j);
 
-				if (this->mode == MatrixLayout::Mode::LabyrinthEditing) {
-					MatrixLayoutNode* const matrixLayoutNodePtr =
-						static_cast<MatrixLayoutNode*>(clickablePtr);
+				MatrixLayoutNode* const matrixLayoutNodePtr =
+					static_cast<MatrixLayoutNode*>(clickablePtr);
 
+				if (this->mode == MatrixLayout::Mode::LabyrinthEditing) {
 					if (matrixLayoutNodePtr->matrixNodePtr == NULL)
 					{
 						this->matrixPtr->removeWall(i, j);
 						matrixLayoutNodePtr->matrixNodePtr = &this->matrixPtr->getNode(i, j);
 					}
 					else {
+						if (matrixLayoutNodePtr->isBoundary) this->removeBoundaryPoints();
 						this->matrixPtr->addWall(i, j);
 						matrixLayoutNodePtr->matrixNodePtr = NULL;
 					}
 				}
+				else if (this->mode == MatrixLayout::Mode::PointsChoosing) {
+					if (matrixLayoutNodePtr->matrixNodePtr != NULL) {
+						if (this->pathBeginLayoutNodePtr != NULL) {
+							this->pathEndLayoutNodePtr = matrixLayoutNodePtr;
+							this->setMode(MatrixLayout::Mode::Initial);
+						}
+						else
+							this->pathBeginLayoutNodePtr = matrixLayoutNodePtr;
+
+						matrixLayoutNodePtr->setIsBoundary(true);
+					}
+				}
+
 			};
 
 			this->matrixLayoutNodes[indexInLayoutNodesArray] = MatrixLayoutNode(
@@ -77,6 +93,30 @@ float MatrixLayout::calculateNodeSize() {
 	);
 }
 
+void removeBoundaryPoint(MatrixLayoutNode** matrixLayoutPtrPtr) {
+	if (*matrixLayoutPtrPtr == NULL) return;
+
+	(*matrixLayoutPtrPtr)->setIsBoundary(false);
+	*matrixLayoutPtrPtr = NULL;
+}
+
+
+void MatrixLayout::removeBoundaryPoints()
+{
+	removeBoundaryPoint(&this->pathBeginLayoutNodePtr);
+	removeBoundaryPoint(&this->pathEndLayoutNodePtr);
+}
+
+void MatrixLayout::modeChangeHandler()
+{
+	if (this->mode == MatrixLayout::Mode::PointsChoosing) {
+		this->removeBoundaryPoints();
+	}
+	else if (this->pathBeginLayoutNodePtr != NULL &&
+		this->pathEndLayoutNodePtr == NULL)
+		removeBoundaryPoint(&this->pathBeginLayoutNodePtr);
+}
+
 void MatrixLayout::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (size_t i = 0; i < MATRIX_AREA; i++) {
@@ -101,6 +141,7 @@ void MatrixLayout::setSize(const sf::Vector2f &size) {
 void MatrixLayout::setMode(MatrixLayout::Mode mode)
 {
 	this->mode = mode;
+	this->modeChangeHandler();
 }
 
 MatrixLayout::~MatrixLayout()

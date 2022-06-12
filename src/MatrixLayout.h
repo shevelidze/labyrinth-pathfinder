@@ -30,6 +30,9 @@ public:
 
 private:
 	float calculateNodeSize();
+	void modeChangeHandler();
+	void removeBoundaryPoints();
+
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	virtual const sf::RenderWindow& getWindow() const override;
@@ -45,4 +48,7 @@ private:
 	MatrixLayoutNode* hoveredLayoutNodePtr;
 	
 	std::vector<Clickable*> clickablePointersVector;
+
+	MatrixLayoutNode* pathBeginLayoutNodePtr;
+	MatrixLayoutNode* pathEndLayoutNodePtr;
 };

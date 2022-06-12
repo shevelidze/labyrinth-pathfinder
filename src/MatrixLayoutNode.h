@@ -18,6 +18,8 @@ public:
 	);
 	MatrixLayoutNode();
 
+	void setIsBoundary(const bool& isBoundary);
+
 	virtual ClickEventHandler getClickEventHandler() const override;
 	virtual sf::FloatRect getGlobalBounds() const override;
 
@@ -26,6 +28,8 @@ private:
 
 	const MatrixNode *matrixNodePtr;
 	ClickEventHandler clickEventHandler;
+
+	bool isBoundary;
 
 	friend class MatrixLayout;
 };
