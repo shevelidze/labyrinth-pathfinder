@@ -11,6 +11,7 @@ void calculateCosts(MatrixNode* beginNode, LabyrinthMatrix* matrix) {
 		MatrixNode* currentNode = nodesProcessingQueue.back();
 		nodesProcessingQueue.pop();
 
+		currentNode->setIsQueued(false);
 		currentNode->setCost(cost++);
 
 		for (auto relatedNode : matrix->findRelatedNodes(currentNode)) {
