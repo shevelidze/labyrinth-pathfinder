@@ -17,6 +17,7 @@ public:
 		const MatrixNode &matrixNode
 	);
 	MatrixLayoutNode();
+
 	virtual ClickEventHandler getClickEventHandler() const override;
 	virtual sf::FloatRect getGlobalBounds() const override;
 
@@ -25,4 +26,6 @@ private:
 
 	const MatrixNode *matrixNodePtr;
 	ClickEventHandler clickEventHandler;
+
+	friend class MatrixLayout;
 };

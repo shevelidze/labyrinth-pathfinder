@@ -22,7 +22,7 @@ MatrixLayoutNode::MatrixLayoutNode() :
 	clickEventHandler(NULL)
 {}
 
-ClickEventHandler MatrixLayoutNode::getClickEventHandler() const
+Clickable::ClickEventHandler MatrixLayoutNode::getClickEventHandler() const
 {
 	return this->clickEventHandler;
 }

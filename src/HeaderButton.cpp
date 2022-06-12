@@ -44,7 +44,7 @@ sf::FloatRect HeaderButton::getGlobalBounds() const
 	return this->rectangleShape.getGlobalBounds();
 }
 
-ClickEventHandler HeaderButton::getClickEventHandler() const
+Clickable::ClickEventHandler HeaderButton::getClickEventHandler() const
 {
 	return this->clickEventHandler;
 }

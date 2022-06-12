@@ -7,6 +7,8 @@
 class ClickableWrapper
 {
 public:
+	ClickableWrapper();
+
 	void handleEvent(const sf::Event& event);
 
 private:
@@ -16,4 +18,7 @@ private:
 	void unhoverHoveredClickable();
 
 	Clickable* hoveredClickablePtr;
+	Clickable* lastClickedClickablePtr;
+
+	bool leftMouseButtonIsPressed;
 };

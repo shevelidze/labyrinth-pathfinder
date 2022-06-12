@@ -22,7 +22,7 @@ public:
 private:
 	void addButton(
 		const sf::String& text,
-		ClickEventHandler clickEventHandler
+		Clickable::ClickEventHandler clickEventHandler
 	);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

@@ -3,12 +3,13 @@
 #include <functional>
 #include <SFML/Graphics.hpp>
 
-typedef std::function<void()> ClickEventHandler;
 
 
 class Clickable
 {
 public:
+	typedef std::function<void(Clickable*)> ClickEventHandler;
+
 	Clickable(const bool& isHovered);
 
 	virtual ClickEventHandler getClickEventHandler() const = 0;

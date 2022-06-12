@@ -13,21 +13,21 @@ HeaderLayout::HeaderLayout(
 {
 	this->addButton(
 		"Edit labyrinth",
-		[&matrixLayout]() {
+		[&matrixLayout](Clickable* clickablePtr) {
 			matrixLayout.setMode(MatrixLayout::Mode::LabyrinthEditing);
 		}
 	);
 
 	this->addButton(
 		"Choose points",
-		[&matrixLayout]() {
+		[&matrixLayout](Clickable* clickablePtr) {
 			matrixLayout.setMode(MatrixLayout::Mode::PointsChoosing);
 		}
 	);
 
 	this->addButton(
 		"Start search",
-		[&matrixLayout]() {
+		[&matrixLayout](Clickable* clickablePtr) {
 			matrixLayout.setMode(MatrixLayout::Mode::AnimationViewing);
 		}
 	);
@@ -55,7 +55,7 @@ const sf::RenderWindow& HeaderLayout::getWindow() const
 	return *this->windowPtr;
 }
 
-void HeaderLayout::addButton(const sf::String& text, ClickEventHandler clickEventHandler)
+void HeaderLayout::addButton(const sf::String& text, Clickable::ClickEventHandler clickEventHandler)
 {
 	sf::Vector2f newButtonPosition(
 		this->buttonPointersVector.empty() ? 0 : (

@@ -27,8 +27,24 @@ MatrixLayout::MatrixLayout(
 		{
 			size_t indexInLayoutNodesArray = i * LABYRINTH_MATRIX_COLUMNS + j;
 
-			ClickEventHandler clickEventHandler = [i, j]() {
+			Clickable::ClickEventHandler clickEventHandler = 
+				[i, j, this](Clickable* clickablePtr) {
 				printf("Pressed node %i, %i\n", i, j);
+
+				if (this->mode == MatrixLayout::Mode::LabyrinthEditing) {
+					MatrixLayoutNode* const matrixLayoutNodePtr =
+						static_cast<MatrixLayoutNode*>(clickablePtr);
+
+					if (matrixLayoutNodePtr->matrixNodePtr == NULL)
+					{
+						this->matrixPtr->removeWall(i, j);
+						matrixLayoutNodePtr->matrixNodePtr = &this->matrixPtr->getNode(i, j);
+					}
+					else {
+						this->matrixPtr->addWall(i, j);
+						matrixLayoutNodePtr->matrixNodePtr = NULL;
+					}
+				}
 			};
 
 			this->matrixLayoutNodes[indexInLayoutNodesArray] = MatrixLayoutNode(
@@ -63,22 +79,6 @@ float MatrixLayout::calculateNodeSize() {
 
 void MatrixLayout::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	switch (this->mode)
-	{
-	case MatrixLayout::Mode::AnimationViewing:
-		std::cout << "Animation viewing\n";
-		break;
-	case MatrixLayout::Mode::LabyrinthEditing:
-		std::cout << "Labyrinth editing\n";
-		break;
-	case MatrixLayout::Mode::PointsChoosing:
-		std::cout << "Points choosing\n";
-		break;
-	case MatrixLayout::Mode::Initial:
-		std::cout << "Initial\n";
-		break;
-	}
-
 	for (size_t i = 0; i < MATRIX_AREA; i++) {
 		target.draw(this->matrixLayoutNodes[i], states);
 	}
