@@ -11,6 +11,8 @@ public:
 	StepAnimation(const sf::Time& stepDuration);
 	~StepAnimation();
 
+	const bool& getIsFinished();
+
 	void drawFrame();
 
 protected:

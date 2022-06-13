@@ -11,6 +11,11 @@ StepAnimation::~StepAnimation()
 	if (this->clockPtr != NULL) delete this->clockPtr;
 }
 
+const bool& StepAnimation::getIsFinished()
+{
+	return this->isFinished;
+}
+
 void StepAnimation::drawFrame()
 {
 	if (this->isFinished)

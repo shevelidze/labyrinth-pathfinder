@@ -21,7 +21,7 @@ MatrixNode &LabyrinthMatrix::getNode(int rowIndex, int columnIndex) {
 	return *(this->matrix[rowIndex][columnIndex]);
 }
 
-template <class T> void pushBackIfNotNULL(std::vector<T*> vector, T* value) {
+template <class T> void pushBackIfNotNULL(std::vector<T*> &vector, T* value) {
 	if (value != NULL) vector.push_back(value);
 }
 

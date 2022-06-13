@@ -28,7 +28,7 @@ HeaderLayout::HeaderLayout(
 	this->addButton(
 		"Start search",
 		[&matrixLayout](Clickable* clickablePtr) {
-			matrixLayout.setMode(MatrixLayout::Mode::AnimationViewing);
+			matrixLayout.startPathSearchAnimation();
 		}
 	);
 }

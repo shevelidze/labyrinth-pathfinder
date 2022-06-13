@@ -14,7 +14,7 @@ public:
 		const sf::Vector2f& position,
 		const float& size,
 		ClickEventHandler clickEventHandler,
-		const MatrixNode &matrixNode
+		MatrixNode &matrixNode
 	);
 	MatrixLayoutNode();
 
@@ -26,7 +26,7 @@ public:
 private:
 	virtual void stateChangeHandler() override;
 
-	const MatrixNode *matrixNodePtr;
+	MatrixNode *matrixNodePtr;
 	ClickEventHandler clickEventHandler;
 
 	bool isBoundary;

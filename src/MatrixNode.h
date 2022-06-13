@@ -1,5 +1,8 @@
 #pragma once
 
+#include <limits>
+#include <functional>
+
 
 class MatrixNode {
 public:
@@ -13,7 +16,7 @@ public:
 	void setCost(unsigned cost);
 	void setIsUsedInRoute(bool isUsedInRoute);
 	void setIsQueued(bool isQueued);
-	void setPropertyChangeHandlerPtr(void (*propertyChangeHandlerPtr)());
+	void setPropertyChangeHandler(std::function<void ()> propertyChangeHandler);
 
 	friend class LabyrinthMatrix;
 
@@ -23,6 +26,6 @@ private:
 	size_t columnIndex, rowIndex;
 	unsigned cost;
 	bool isQueued, isUsedInRoute;
-	void (*propertyChangeHandlerPtr)();
+	std::function<void()> propertyChangeHandler;
 
 };

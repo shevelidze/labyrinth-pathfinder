@@ -1,5 +1,4 @@
 #include "MatrixNode.h"
-#include <limits>
 
 MatrixNode::MatrixNode(size_t rowIndex, size_t columnIndex) :
 	isQueued(false),
@@ -7,7 +6,7 @@ MatrixNode::MatrixNode(size_t rowIndex, size_t columnIndex) :
 	rowIndex(rowIndex),
 	columnIndex(columnIndex),
 	cost(UINT_MAX),
-	propertyChangeHandlerPtr(NULL)
+	propertyChangeHandler(NULL)
 {}
 
 const unsigned& MatrixNode::getCost() {
@@ -27,26 +26,26 @@ bool MatrixNode::checkIfVisited() {
 }
 
 void MatrixNode::setIsQueued(bool isQueued) {
-	this->callPropertyChangeHandler();
 	this->isQueued = isQueued;
+	this->callPropertyChangeHandler();
 }
 
 void MatrixNode::callPropertyChangeHandler()
 {
-	if (this->propertyChangeHandlerPtr != NULL) (this->propertyChangeHandlerPtr)();
+	if (this->propertyChangeHandler != NULL) (this->propertyChangeHandler)();
 }
 
-void MatrixNode::setPropertyChangeHandlerPtr(void (*propertyChangeHandlerPtr)())
+void MatrixNode::setPropertyChangeHandler(std::function<void ()> propertyChangeHandler)
 {
-	this->propertyChangeHandlerPtr = propertyChangeHandlerPtr;
+	this->propertyChangeHandler = propertyChangeHandler;
 }
 
 void MatrixNode::setIsUsedInRoute(bool isUsedInRoute) {
-	this->callPropertyChangeHandler();
 	this->isUsedInRoute = isUsedInRoute;
+	this->callPropertyChangeHandler();
 }
 
 void MatrixNode::setCost(unsigned cost) {
-	this->callPropertyChangeHandler();
 	this->cost = cost;
+	this->callPropertyChangeHandler();
 }

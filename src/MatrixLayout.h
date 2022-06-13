@@ -1,11 +1,14 @@
 #pragma once
 
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include "LabyrinthMatrix.h"
 #include "MatrixLayoutNode.h"
 #include "ClickableWrapper.h"
+#include "CostsCalculationAnimation.h"
 
 const float NODES_GAP = 5;
+const sf::Time ANIMATION_STEP_DURATION = sf::milliseconds(100);
 
 class MatrixLayout : public sf::Drawable, public ClickableWrapper
 {
@@ -26,7 +29,8 @@ public:
 	~MatrixLayout();
 
 	void setSize(const sf::Vector2f &size);
-	void setMode(MatrixLayout::Mode mode);
+	bool setMode(MatrixLayout::Mode mode);
+	void startPathSearchAnimation();
 
 private:
 	float calculateNodeSize();
@@ -39,10 +43,10 @@ private:
 	virtual const std::vector<Clickable*>& getClickablePointersVector() const override;
 
 	sf::Vector2f size;
-	MatrixLayout::Mode mode;
-
-	LabyrinthMatrix *matrixPtr;
 	const sf::RenderWindow* windowPtr;
+
+	MatrixLayout::Mode mode;
+	LabyrinthMatrix *matrixPtr;
 
 	MatrixLayoutNode* matrixLayoutNodes;
 	MatrixLayoutNode* hoveredLayoutNodePtr;
@@ -51,4 +55,6 @@ private:
 
 	MatrixLayoutNode* pathBeginLayoutNodePtr;
 	MatrixLayoutNode* pathEndLayoutNodePtr;
+
+	mutable std::vector<StepAnimation*> stepAnimationPointersVector;
 };

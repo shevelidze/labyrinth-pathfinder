@@ -23,6 +23,7 @@
     <ClCompile Include="calculateCosts.cpp" />
     <ClCompile Include="Clickable.cpp" />
     <ClCompile Include="ClickableWrapper.cpp" />
+    <ClCompile Include="CostsCalculationAnimation.cpp" />
     <ClCompile Include="HeaderButton.cpp" />
     <ClCompile Include="HeaderLayout.cpp" />
     <ClCompile Include="LabyrinthMatrix.cpp" />
@@ -31,12 +32,14 @@
     <ClCompile Include="MatrixLayoutNode.cpp" />
     <ClCompile Include="MatrixNode.cpp" />
     <ClCompile Include="PathfinderGUI.cpp" />
+    <ClCompile Include="StepAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buildPath.h" />
     <ClInclude Include="calculateCosts.h" />
     <ClInclude Include="Clickable.h" />
     <ClInclude Include="ClickableWrapper.h" />
+    <ClInclude Include="CostsCalculationAnimation.h" />
     <ClInclude Include="HeaderButton.h" />
     <ClInclude Include="HeaderLayout.h" />
     <ClInclude Include="LabyrinthMatrix.h" />
@@ -44,6 +47,7 @@
     <ClInclude Include="MatrixLayoutNode.h" />
     <ClInclude Include="MatrixNode.h" />
     <ClInclude Include="PathfinderGUI.h" />
+    <ClInclude Include="StepAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\Roboto-Medium.ttf">

@@ -37,6 +37,12 @@
     <ClCompile Include="ClickableWrapper.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="StepAnimation.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="CostsCalculationAnimation.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buildPath.h">
@@ -70,6 +76,12 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="ClickableWrapper.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="StepAnimation.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="CostsCalculationAnimation.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

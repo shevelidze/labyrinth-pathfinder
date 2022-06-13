@@ -5,7 +5,7 @@ MatrixLayoutNode::MatrixLayoutNode(
 	const sf::Vector2f &position,
 	const float &size,
 	ClickEventHandler clickEventHandler,
-	const MatrixNode& matrixNode
+	MatrixNode& matrixNode
 ) :
 	Clickable(false),
 	matrixNodePtr(&matrixNode),
@@ -44,5 +44,7 @@ void MatrixLayoutNode::stateChangeHandler() {
 	if (this->isHovered) this->setFillColor(HOVERED_NODE_COLOR);
 	else if (this->matrixNodePtr == NULL) this->setFillColor(sf::Color::Black);
 	else if (this->isBoundary) this->setFillColor(sf::Color::Yellow);
+	else if (this->matrixNodePtr->checkIfVisited()) this->setFillColor(sf::Color::Magenta);
+	else if (this->matrixNodePtr->getIsQueued()) this->setFillColor(sf::Color(50, 50, 50));
 	else this->setFillColor(REGULAR_NODE_COLOR);
 }

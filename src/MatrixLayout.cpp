@@ -70,6 +70,15 @@ MatrixLayout::MatrixLayout(
 				this->matrixPtr->getNode(i, j)
 			);
 
+			MatrixLayoutNode& currentMatrixLayoutNode =
+				this->matrixLayoutNodes[indexInLayoutNodesArray];
+
+			this->matrixPtr->getNode(i, j).setPropertyChangeHandler(
+				[&currentMatrixLayoutNode]() {
+					currentMatrixLayoutNode.stateChangeHandler();
+				}
+			);
+
 			this->clickablePointersVector.push_back(
 				&matrixLayoutNodes[indexInLayoutNodesArray]
 			);
@@ -119,6 +128,17 @@ void MatrixLayout::modeChangeHandler()
 
 void MatrixLayout::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	for (size_t i = 0; i < this->stepAnimationPointersVector.size(); i++) {
+		const auto& stepAnimationPtr = this->stepAnimationPointersVector[i];
+		if (!stepAnimationPtr->getIsFinished()) stepAnimationPtr->drawFrame();
+		else {
+			delete stepAnimationPtr;
+			this->stepAnimationPointersVector.erase(
+				this->stepAnimationPointersVector.begin() + i
+			);
+		}
+	}
+
 	for (size_t i = 0; i < MATRIX_AREA; i++) {
 		target.draw(this->matrixLayoutNodes[i], states);
 	}
@@ -138,13 +158,27 @@ void MatrixLayout::setSize(const sf::Vector2f &size) {
 	this->size = size;
 }
 
-void MatrixLayout::setMode(MatrixLayout::Mode mode)
+bool MatrixLayout::setMode(MatrixLayout::Mode mode)
 {
+	if (this->mode == MatrixLayout::Mode::AnimationViewing) return false;
 	this->mode = mode;
 	this->modeChangeHandler();
+	return true;
+}
+
+void MatrixLayout::startPathSearchAnimation()
+{
+	this->setMode(MatrixLayout::Mode::AnimationViewing);
+	this->stepAnimationPointersVector.push_back(new CostsCalculationAnimation(
+		this->pathBeginLayoutNodePtr->matrixNodePtr,
+		this->matrixPtr,
+		ANIMATION_STEP_DURATION
+	));
 }
 
 MatrixLayout::~MatrixLayout()
 {
 	delete[] this->matrixLayoutNodes;
+	for (auto& stepAnimationPtr : this->stepAnimationPointersVector)
+		delete stepAnimationPtr;
 }
