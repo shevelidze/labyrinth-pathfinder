@@ -37,7 +37,6 @@ MatrixLayout::MatrixLayout(
 
 			Clickable::ClickEventHandler clickEventHandler = 
 				[i, j, matrixNodePropertyChangeHandler, this](Clickable* clickablePtr) {
-				printf("Pressed node %i, %i\n", i, j);
 
 				MatrixLayoutNode* const matrixLayoutNodePtr =
 					static_cast<MatrixLayoutNode*>(clickablePtr);
@@ -172,6 +171,9 @@ bool MatrixLayout::setMode(MatrixLayout::Mode mode)
 
 void MatrixLayout::startPathFindingAnimation()
 {
+	if (this->pathBeginLayoutNodePtr == NULL ||
+		this->pathEndLayoutNodePtr == NULL) return;
+
 	this->setMode(MatrixLayout::Mode::AnimationViewing);
 	this->stepAnimationPointersVector.push_back(new PathFindingAnimation(
 		*(this->pathBeginLayoutNodePtr->matrixNodePtr),
