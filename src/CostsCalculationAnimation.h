@@ -11,14 +11,14 @@ class CostsCalculationAnimation : public StepAnimation
 {
 public:
 	CostsCalculationAnimation(
-		MatrixNode* beginNodePtr,
-		LabyrinthMatrix* matrixPtr,
+		MatrixNode& beginNode,
+		LabyrinthMatrix& matrix,
 		const sf::Time& stepDuration
 	);
 
+private:
 	virtual void step() override;
 
-private:
 	std::queue<MatrixNode*> nodesProcessingQueue;
 	MatrixNode* beginNodePtr;
 	LabyrinthMatrix* matrixPtr;

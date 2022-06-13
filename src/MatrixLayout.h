@@ -5,10 +5,10 @@
 #include "LabyrinthMatrix.h"
 #include "MatrixLayoutNode.h"
 #include "ClickableWrapper.h"
-#include "CostsCalculationAnimation.h"
+#include "PathFindingAnimation.h"
 
 const float NODES_GAP = 5;
-const sf::Time ANIMATION_STEP_DURATION = sf::milliseconds(100);
+const sf::Time ANIMATION_STEP_DURATION = sf::milliseconds(50);
 
 class MatrixLayout : public sf::Drawable, public ClickableWrapper
 {
@@ -30,7 +30,7 @@ public:
 
 	void setSize(const sf::Vector2f &size);
 	bool setMode(MatrixLayout::Mode mode);
-	void startPathSearchAnimation();
+	void startPathFindingAnimation();
 
 private:
 	float calculateNodeSize();

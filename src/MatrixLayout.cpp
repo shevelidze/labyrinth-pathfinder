@@ -28,9 +28,15 @@ MatrixLayout::MatrixLayout(
 		for (size_t j = 0; j < LABYRINTH_MATRIX_COLUMNS; j++)
 		{
 			size_t indexInLayoutNodesArray = i * LABYRINTH_MATRIX_COLUMNS + j;
+			MatrixLayoutNode& currentMatrixLayoutNode =
+				this->matrixLayoutNodes[indexInLayoutNodesArray];
+
+			const auto matrixNodePropertyChangeHandler = [&currentMatrixLayoutNode]() {
+				currentMatrixLayoutNode.stateChangeHandler();
+			};
 
 			Clickable::ClickEventHandler clickEventHandler = 
-				[i, j, this](Clickable* clickablePtr) {
+				[i, j, matrixNodePropertyChangeHandler, this](Clickable* clickablePtr) {
 				printf("Pressed node %i, %i\n", i, j);
 
 				MatrixLayoutNode* const matrixLayoutNodePtr =
@@ -41,6 +47,9 @@ MatrixLayout::MatrixLayout(
 					{
 						this->matrixPtr->removeWall(i, j);
 						matrixLayoutNodePtr->matrixNodePtr = &this->matrixPtr->getNode(i, j);
+						this->matrixPtr->getNode(i, j).setPropertyChangeHandler(
+							matrixNodePropertyChangeHandler
+						);
 					}
 					else {
 						if (matrixLayoutNodePtr->isBoundary) this->removeBoundaryPoints();
@@ -70,13 +79,8 @@ MatrixLayout::MatrixLayout(
 				this->matrixPtr->getNode(i, j)
 			);
 
-			MatrixLayoutNode& currentMatrixLayoutNode =
-				this->matrixLayoutNodes[indexInLayoutNodesArray];
-
 			this->matrixPtr->getNode(i, j).setPropertyChangeHandler(
-				[&currentMatrixLayoutNode]() {
-					currentMatrixLayoutNode.stateChangeHandler();
-				}
+				matrixNodePropertyChangeHandler
 			);
 
 			this->clickablePointersVector.push_back(
@@ -166,12 +170,13 @@ bool MatrixLayout::setMode(MatrixLayout::Mode mode)
 	return true;
 }
 
-void MatrixLayout::startPathSearchAnimation()
+void MatrixLayout::startPathFindingAnimation()
 {
 	this->setMode(MatrixLayout::Mode::AnimationViewing);
-	this->stepAnimationPointersVector.push_back(new CostsCalculationAnimation(
-		this->pathBeginLayoutNodePtr->matrixNodePtr,
-		this->matrixPtr,
+	this->stepAnimationPointersVector.push_back(new PathFindingAnimation(
+		*(this->pathBeginLayoutNodePtr->matrixNodePtr),
+		*(this->pathEndLayoutNodePtr->matrixNodePtr),
+		*(this->matrixPtr),
 		ANIMATION_STEP_DURATION
 	));
 }

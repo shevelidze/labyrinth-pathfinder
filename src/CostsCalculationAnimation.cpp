@@ -1,14 +1,14 @@
 #include "CostsCalculationAnimation.h"
 
 CostsCalculationAnimation::CostsCalculationAnimation(
-	MatrixNode* beginNodePtr,
-	LabyrinthMatrix* matrixPtr,
+	MatrixNode& beginNode,
+	LabyrinthMatrix& matrix,
 	const sf::Time& stepDuration
 ) :
 	StepAnimation(stepDuration),
 	cost(0),
-	beginNodePtr(beginNodePtr),
-	matrixPtr(matrixPtr)
+	beginNodePtr(&beginNode),
+	matrixPtr(&matrix)
 {
 	this->nodesProcessingQueue.push(beginNodePtr);
 }

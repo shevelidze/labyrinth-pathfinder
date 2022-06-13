@@ -19,8 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="buildPath.cpp" />
-    <ClCompile Include="calculateCosts.cpp" />
     <ClCompile Include="Clickable.cpp" />
     <ClCompile Include="ClickableWrapper.cpp" />
     <ClCompile Include="CostsCalculationAnimation.cpp" />
@@ -32,11 +30,11 @@
     <ClCompile Include="MatrixLayoutNode.cpp" />
     <ClCompile Include="MatrixNode.cpp" />
     <ClCompile Include="PathfinderGUI.cpp" />
+    <ClCompile Include="PathFindingAnimation.cpp" />
+    <ClCompile Include="PathRestoringAnimation.cpp" />
     <ClCompile Include="StepAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="buildPath.h" />
-    <ClInclude Include="calculateCosts.h" />
     <ClInclude Include="Clickable.h" />
     <ClInclude Include="ClickableWrapper.h" />
     <ClInclude Include="CostsCalculationAnimation.h" />
@@ -47,6 +45,8 @@
     <ClInclude Include="MatrixLayoutNode.h" />
     <ClInclude Include="MatrixNode.h" />
     <ClInclude Include="PathfinderGUI.h" />
+    <ClInclude Include="PathFindingAnimation.h" />
+    <ClInclude Include="PathRestoringAnimation.h" />
     <ClInclude Include="StepAnimation.h" />
   </ItemGroup>
   <ItemGroup>

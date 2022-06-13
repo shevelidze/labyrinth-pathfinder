@@ -10,11 +10,11 @@ public:
 	bool checkIfVisited();
 
 	const unsigned& getCost();
-	const bool& getIsUsedInRoute();
+	const bool& getIsUsedInPath();
 	const bool& getIsQueued();
 
 	void setCost(unsigned cost);
-	void setIsUsedInRoute(bool isUsedInRoute);
+	void setIsUsedInPath(bool isUsedInPath);
 	void setIsQueued(bool isQueued);
 	void setPropertyChangeHandler(std::function<void ()> propertyChangeHandler);
 
@@ -25,7 +25,7 @@ private:
 
 	size_t columnIndex, rowIndex;
 	unsigned cost;
-	bool isQueued, isUsedInRoute;
+	bool isQueued, isUsedInPath;
 	std::function<void()> propertyChangeHandler;
 
 };

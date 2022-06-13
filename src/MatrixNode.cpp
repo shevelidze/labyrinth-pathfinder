@@ -2,7 +2,7 @@
 
 MatrixNode::MatrixNode(size_t rowIndex, size_t columnIndex) :
 	isQueued(false),
-	isUsedInRoute(false),
+	isUsedInPath(false),
 	rowIndex(rowIndex),
 	columnIndex(columnIndex),
 	cost(UINT_MAX),
@@ -17,8 +17,8 @@ const bool& MatrixNode::getIsQueued() {
 	return this->isQueued;
 }
 
-const bool& MatrixNode::getIsUsedInRoute() {
-	return this->isUsedInRoute;
+const bool& MatrixNode::getIsUsedInPath() {
+	return this->isUsedInPath;
 }
 
 bool MatrixNode::checkIfVisited() {
@@ -33,6 +33,7 @@ void MatrixNode::setIsQueued(bool isQueued) {
 void MatrixNode::callPropertyChangeHandler()
 {
 	if (this->propertyChangeHandler != NULL) (this->propertyChangeHandler)();
+	else printf("NULL handler\n");
 }
 
 void MatrixNode::setPropertyChangeHandler(std::function<void ()> propertyChangeHandler)
@@ -40,8 +41,8 @@ void MatrixNode::setPropertyChangeHandler(std::function<void ()> propertyChangeH
 	this->propertyChangeHandler = propertyChangeHandler;
 }
 
-void MatrixNode::setIsUsedInRoute(bool isUsedInRoute) {
-	this->isUsedInRoute = isUsedInRoute;
+void MatrixNode::setIsUsedInPath(bool isUsedInPath) {
+	this->isUsedInPath = isUsedInPath;
 	this->callPropertyChangeHandler();
 }
 

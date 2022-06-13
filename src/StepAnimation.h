@@ -6,8 +6,6 @@
 class StepAnimation
 {
 public:
-	virtual void step() = 0;
-
 	StepAnimation(const sf::Time& stepDuration);
 	~StepAnimation();
 
@@ -19,6 +17,8 @@ protected:
 	void finish();
 
 private:
+	virtual void step() = 0;
+
 	sf::Time stepDuration;
 	sf::Clock* clockPtr;
 	bool isFinished;
