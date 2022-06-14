@@ -2,7 +2,7 @@
 
 _labyrinth-pathfinder_ is a program for finiding path in a labyrinth written on C++ using SFML.
 
-## Work demonstartion
+## Work demonstration
 
 <p align="center">
 <img src="https://i.ibb.co/tCy5xfr/ezgif-com-gif-maker-2.gif" alt="ezgif-com-gif-maker-2" border="0">
